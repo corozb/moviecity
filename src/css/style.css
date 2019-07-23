@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Righteous&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+:root {
+  --darkColor: #131D46;
+  --lighColor: rgb(200, 208, 245);
+  --fontColor: #F44593;
+}
+
+/* ------- CSS GRID ---------- */
+.container {
+  background: linear-gradient(to bottom, var(--darkColor), black);
+  color: var(--lighColor);
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 1fr 150px;
+  grid-template-areas: 
+        "sidebar cartel"
+        "sidebar featuring";
+}
+
+.home-sidebar {
+  grid-area: sidebar
+}
+
+.cartel {
+  grid-area: cartel
+}
+
+.home-featuring {
+  grid-area: featuring
+}
+
+
+/* ---------- SIDEBAR --------- */
+.sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto);
+  background: #fff;
+  color: black;
+  padding: 1em;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: auto;
+}
+
+.logo {
+  color: var(--fontColor);
+  text-transform: uppercase;
+  font-family: 'Righteous', cursive;
+  font-size: 26px;
+}
+
+.logo h1 {
+  margin: auto;
+  font-size: 40px;
+
+}
+
+.logo i {
+  color: #596494;
+}
+
+/* ------------ top ten playlist------------ */
+.playlist {
+  overflow: auto;
+}
+
+.playlist h2 {
+  font-size: 2em;
+  margin-bottom: 0;
+}
+
+.myplaylist-item a {
+  text-decoration: none;
+  font-size: 14.5px;
+  /* font-size: 1em; */
+  display: block;
+  margin-bottom: 7px;
+  color: gray;
+}
+
+.myplaylist-item:last-child a {
+  margin-bottom: 0;
+}
+
+.myplaylist-item a:hover {
+  color: var(--fontColor)
+}
+
+/* ------ friends playlist ------- */
+.online_friends {
+  padding: 0;
+  margin-left: 16px;
+}
+
+.eachfriend-item {
+  display: flex;
+  margin-bottom: 7px;
+}
+
+.eachfriend-item img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.eachfriend-item a {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1em;
+  text-decoration: none;
+  color: gray;
+}
+
+.eachfriend-item a:hover {
+  color: var(--fontColor)
+}
+
+.eachfriend-item span {
+  display: inline-block;
+}
+
+
+/* ----------- CARTEL ------------ */
+.cartel {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  padding: 10px;
+  overflow: auto;
+  grid-template-areas:
+    "search user"
+    "list list"
+}
+
+.cartel-search {
+  grid-area: search
+}
+
+.cartel-search {
+  display: flex;
+  align-items: center
+}
+
+.cartel-search i {
+  margin-left: 120px;
+}
+
+.search input {
+  background: #283156;
+  font-family: 'PT Sans Narrow', sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1em;
+  width: 180%;
+  border: none;
+  outline: none;
+  /* box-sizing: border-box; */
+  color: #fff;
+}
+
+.search input:focus {
+  box-shadow: 0 0 10px var(--lighColor);
+}
+
+.main-user {
+  grid-area: user;
+  justify-self: end;
+}
+
+.user p {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  margin: 0;
+}
+
+.user img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 10px;
+}
+
+.cartel-list {
+  grid-area: list;
+  overflow: auto;
+}
+
+.cartel-topic {
+  margin: 15px 0 0;
+  font-weight: 300;
+  font-size: 15px
+}
+
+.cartel-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.playlist-movies {
+  display: flex;
+  overflow: auto;
+}
+
+.playlist-movies .movie-image {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.movie img {
+  width: 250px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 10px
+}
+
+.movie-title {
+  margin: 5px 0;
+  font-weight: normal
+}
+
+.movie:hover img {
+  box-shadow: 0 0 10px var(--lighColor);
+}
+
+.featuring {
+  background: #000;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 100px;
+}
+
+.featuring-image {
+  margin: 20px
+}
+
+.featuring-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px
+}
+
+.featuring-title {
+  margin: 10px
+}
+
+.featuring-movie {
+  font-size: 1.3em;
+  margin: 10px
+}
