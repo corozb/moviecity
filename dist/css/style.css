@@ -16,21 +16,8 @@ body {
   grid-template-rows: 1fr 150px;
   grid-template-areas: 
         "sidebar cartel"
-        "sidebar featuring"
-  }
-
-@media (max-width: 950px) {
-
-.container {
-      height: auto;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto 150px;
-      grid-template-areas: 
-      "cartel "
-      "sidebar" 
-      "featuring"
-  } 
-    }
+        "sidebar featuring";
+}
 
 .home-sidebar {
   grid-area: sidebar
@@ -252,19 +239,8 @@ body {
   display: flex;
   height: 100%;
   align-items: center;
-  padding-left: 100px
+  padding-left: 100px;
   }
-
-@media (max-width: 950px) {
-
-.featuring {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px
-  }
-    }
 
 .featuring-image {
   margin: 20px
@@ -288,4 +264,33 @@ body {
 }
 
 /* ---- custom media responsive------------- */
+
+@media (max-width: 950px) {
+  .container {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 150px;
+    grid-template-areas: 
+    "cartel "
+    "sidebar" 
+    "featuring"
+  } 
+
+  .featuring {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+  }
+}
+
+
+
+
+
+
+
+
+
 
