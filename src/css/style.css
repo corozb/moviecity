@@ -22,7 +22,16 @@ body {
   grid-template-areas: 
         "sidebar cartel"
         "sidebar featuring";
-}
+  @media (--tablet) {
+      height: auto;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 150px;
+      grid-template-areas: 
+      "cartel "
+      "sidebar" 
+      "featuring"; 
+    }
+  }
 
 .home-sidebar {
   grid-area: sidebar
@@ -77,20 +86,21 @@ body {
   margin-bottom: 0;
 }
 
-.myplaylist-item a {
-  text-decoration: none;
-  font-size: 14.5px;
-  display: block;
-  margin-bottom: 7px;
-  color: gray;
-}
-
-.myplaylist-item:last-child a {
-  margin-bottom: 0;
-}
-
-.myplaylist-item a:hover {
-  color: var(--fontColor)
+.myplaylist-item {
+  & a {
+    text-decoration: none;
+    font-size: 14.5px;
+    display: block;
+    margin-bottom: 7px;
+    color: gray;
+  }
+  &:last-child a {
+    margin-bottom: 0;
+  }  
+  & :any-link:hover {
+    color: var(--fontColor);
+    /* transform: scale(1.1); */
+  }
 }
 
 /* ------ friends playlist ------- */
@@ -240,7 +250,14 @@ body {
   height: 100%;
   align-items: center;
   padding-left: 100px;
-}
+  @media (--tablet) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    }
+  }
 
 .featuring-image {
   margin: 20px
@@ -265,23 +282,3 @@ body {
 /* ---- custom media responsive------------- */
 @custom-media --tablet (max-width: 950px);
 
-
-@media (--tablet) {
-  .container {
-    height: auto;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 150px;
-    grid-template-areas: 
-    "cartel "
-    "sidebar" 
-    "featuring"; 
-  }
-
-  .featuring {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-  }
-}
