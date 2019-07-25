@@ -1,16 +1,4 @@
-fetch('https://randomuser.me/api/',)
-  .then(function (response){
-    return response.json()
-  })
-  .then(function(user) {
-    console.log('JS: ' + user.results[0].name.first)
-  })
-  .catch(function(){
-    console.log('algo falló')
-  });
-
   (async function load () {
-    // await
 
     // adventure
     // action
@@ -25,6 +13,21 @@ fetch('https://randomuser.me/api/',)
       return data;
     }
     
-    const adventureList = await getData('https://yts.lt/api/v2/list_movies.json?genre=horror')
+    const url = 'https://yts.lt/api/v2/list_movies.json?'
+    const adventureList = await getData(url,'genre=horror')
     console.log(adventureList)
+
+    const advContainer = document.querySelector('#adventure')
+
+    const container = document.querySelector('.container')
+    const featContainer = document.querySelector('.featuring')
+    const form = document.querySelector('.search')
+    const overlay = document.querySelector('.overlay')
+    const modal = document.querySelector('.modal')
+    
+    const modalTitle = modal.querySelector('h1')
+    const modalImage = modal.querySelector('img')
+    const modalDescription = modal.querySelector('p')
+    const hideModal = document.querySelector('#hide-modal')
+
   })()
