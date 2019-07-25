@@ -2,7 +2,7 @@
 
 This project is about a dynamic website where we use Vanilla Javascript to make a search from the **API** of [YTS.lts](https://yts.lt/api){:target="_blank"}. 
 
-[go](http://stackoverflow.com){:target="_blank"}.
+[go](http://stackoverflow.com){target="_blank"}.
 [go](http://stackoverflow.com){:target="_blank" rel="noopener"}
 
 <br/>
