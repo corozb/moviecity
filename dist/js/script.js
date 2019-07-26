@@ -8,10 +8,26 @@
 
   const $form = document.querySelector('.search')
   const $container = document.querySelector('.container')
+  const $featContainer = document.querySelector('.home-featuring')
 
+
+  function addAttributes(element, attributes){
+    for (const key in attributes) {
+      element.setAttribute(key, attributes[key])
+    }
+  }
+  
   $form.addEventListener('submit', (event) => {
     event.preventDefault() //Evita que recarge la página en cada búsqueda
     $container.classList.add('search-active')
+    
+    const loader = document.createElement('img')
+    addAttributes(loader, {
+      src: 'src/images/loading-page.gif',
+      height: 50,
+      width: 100,
+    })
+    $featContainer.append(loader)
   })
   
   const urlApi = 'https://yts.lt/api/v2/list_movies.json?genre='
@@ -84,7 +100,6 @@
   renderMovieList(comedyList.data.movies, comedyContainer)
 
   // Variables
-  const $featContainer = document.querySelector('.featuring')
   const $overlay = document.querySelector('.overlay')
   
   const $modal = document.querySelector('.modal')
