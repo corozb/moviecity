@@ -7,8 +7,11 @@
   }
 
   const $form = document.querySelector('.search')
+  const $container = document.querySelector('.container')
+
   $form.addEventListener('submit', (event) => {
     event.preventDefault() //Evita que recarge la página en cada búsqueda
+    $container.classList.add('search-active')
   })
   
   const urlApi = 'https://yts.lt/api/v2/list_movies.json?genre='
@@ -45,7 +48,7 @@
   
   function clickEvent(element) {
     element.addEventListener('click', () => {
-      alert('diste click')
+      showModal()
     })
   }
 
@@ -81,14 +84,26 @@
   renderMovieList(comedyList.data.movies, comedyContainer)
 
   // Variables
-  const $container = document.querySelector('.container')
   const $featContainer = document.querySelector('.featuring')
   const $overlay = document.querySelector('.overlay')
+  
   const $modal = document.querySelector('.modal')
-
-  const $modalTitle = modal.querySelector('h1')
-  const $modalImage = modal.querySelector('img')
-  const $modalDescription = modal.querySelector('p')
+  const $modalTitle = $modal.querySelector('h1')
+  const $modalImage = $modal.querySelector('img')
+  const $modalDescription = $modal.querySelector('p')
   const $hideModal = document.querySelector('#hide-modal')
+
+  function showModal(){
+    $overlay.classList.add('active')
+    // $modal.classList.toggle('show-modal')
+    $modal.style.animation = 'modalIn .8s forwards'
+
+  }
+
+  $hideModal.addEventListener('click', () => {
+    $overlay.classList.remove('active')
+    // $modal.classList.toggle('show-modal')
+    $modal.style.animation= 'modalOut .8s forwards'
+  })
 
 })()
