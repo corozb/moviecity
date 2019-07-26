@@ -1,9 +1,4 @@
 (async function load () {
-// action
-// horror
-// drama
-// animation
-// comedy
 
   async function getData(url) {
     const response = await fetch(url)
@@ -11,6 +6,11 @@
     return data;
   }
 
+  const $form = document.querySelector('.search')
+  $form.addEventListener('submit', (event) => {
+    event.preventDefault() //Evita que recarge la página en cada búsqueda
+  })
+  
   const urlApi = 'https://yts.lt/api/v2/list_movies.json?genre='
   
   const adventureList = await getData(urlApi +'adventure')
@@ -43,6 +43,12 @@
     return eachItem
   }
   
+  function clickEvent(element) {
+    element.addEventListener('click', () => {
+      alert('diste click')
+    })
+  }
+
   function renderMovieList(list, genreContainer) {
     genreContainer.children[0].remove()
     
@@ -51,6 +57,7 @@
       const movieElements = createHtml(HTMLString)
       
       genreContainer.append(movieElements) //Para que nos imprima cada elemento en el navegador
+      clickEvent(movieElements)
     })
   }
   
@@ -76,7 +83,6 @@
   // Variables
   const $container = document.querySelector('.container')
   const $featContainer = document.querySelector('.featuring')
-  const $form = document.querySelector('.search')
   const $overlay = document.querySelector('.overlay')
   const $modal = document.querySelector('.modal')
 
