@@ -1,6 +1,4 @@
 (async function load () {
-
-// adventure
 // action
 // horror
 // drama
@@ -14,7 +12,7 @@
   }
 
   const urlApi = 'https://yts.lt/api/v2/list_movies.json?genre='
-  const adventureList = await getData(urlApi,'horror')
+  const adventureList = await getData(urlApi,'adventure')
 
   // template
   function movieTemplate(item){
@@ -30,14 +28,18 @@
     )
   }
 
+  const advContainer = document.querySelector('#adventure')
+  
   adventureList.data.movies.forEach((item) => {
-    const HTMLString = movieTemplate(item)
+    const HTMLString = movieTemplate(item) // convertimos a un template
+    const html = document.implementation.createHTMLDocument() // convertimos a un html
+    html.body.innerHTML = HTMLString // agregamos elementos al DOM
+    
+    advContainer.append(html.body.children[0]) //Para que nos imprima cada elemento en el navegador
     console.log(HTMLString)
   })
 
   // Variables
-  const advContainer = document.querySelector('#adventure')
-
   const container = document.querySelector('.container')
   const featContainer = document.querySelector('.featuring')
   const form = document.querySelector('.search')
