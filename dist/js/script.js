@@ -12,7 +12,13 @@
   }
 
   const urlApi = 'https://yts.lt/api/v2/list_movies.json?genre='
-  const adventureList = await getData(urlApi,'adventure')
+  
+  const adventureList = await getData(urlApi +'adventure')
+  const actionList = await getData(urlApi + 'action')
+  const horrorList = await getData(urlApi + 'horror')
+  const dramaList = await getData(urlApi + 'drama')
+  const animationList = await getData(urlApi + 'animation')
+  const comedyList = await getData(urlApi + 'comedy')
 
   // template
   function movieTemplate(item){
@@ -28,27 +34,55 @@
     )
   }
 
-  const advContainer = document.querySelector('#adventure')
-  
-  adventureList.data.movies.forEach((item) => {
-    const HTMLString = movieTemplate(item) // convertimos a un template
+  // functions
+  function createHtml(HTMLString) {  //Creamos nuestro HTML
     const html = document.implementation.createHTMLDocument() // convertimos a un html
     html.body.innerHTML = HTMLString // agregamos elementos al DOM
+    const eachItem = html.body.children[0]
+
+    return eachItem
+  }
+  
+  function renderMovieList(list, genreContainer) {
+    genreContainer.children[0].remove()
     
-    advContainer.append(html.body.children[0]) //Para que nos imprima cada elemento en el navegador
-    console.log(HTMLString)
-  })
+    list.forEach((item) => {
+      const HTMLString = movieTemplate(item) // convertimos a un template
+      const movieElements = createHtml(HTMLString)
+      
+      genreContainer.append(movieElements) //Para que nos imprima cada elemento en el navegador
+    })
+  }
+  
+  // ---- rendering movie list ------------
+  const advContainer = document.querySelector('#adventure')
+  renderMovieList(adventureList.data.movies, advContainer)
+  
+  const actionContainer = document.querySelector('#action')
+  renderMovieList(actionList.data.movies, actionContainer)
+  
+  const horrorContainer = document.querySelector('#horror')
+  renderMovieList(horrorList.data.movies, horrorContainer)
+  
+  const dramaContainer = document.querySelector('#drama')
+  renderMovieList(dramaList.data.movies, dramaContainer)
+  
+  const animationContainer = document.querySelector('#animation')
+  renderMovieList(animationList.data.movies, animationContainer)
+  
+  const comedyContainer = document.querySelector('#comedy')
+  renderMovieList(comedyList.data.movies, comedyContainer)
 
   // Variables
-  const container = document.querySelector('.container')
-  const featContainer = document.querySelector('.featuring')
-  const form = document.querySelector('.search')
-  const overlay = document.querySelector('.overlay')
-  const modal = document.querySelector('.modal')
+  const $container = document.querySelector('.container')
+  const $featContainer = document.querySelector('.featuring')
+  const $form = document.querySelector('.search')
+  const $overlay = document.querySelector('.overlay')
+  const $modal = document.querySelector('.modal')
 
-  const modalTitle = modal.querySelector('h1')
-  const modalImage = modal.querySelector('img')
-  const modalDescription = modal.querySelector('p')
-  const hideModal = document.querySelector('#hide-modal')
+  const $modalTitle = modal.querySelector('h1')
+  const $modalImage = modal.querySelector('img')
+  const $modalDescription = modal.querySelector('p')
+  const $hideModal = document.querySelector('#hide-modal')
 
 })()
