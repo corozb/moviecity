@@ -263,6 +263,10 @@ body {
   margin: 10px;
 }
 
+.modal {
+  color: red
+}
+
 /* ---- custom media responsive------------- */
 
 @media (max-width: 950px) {
