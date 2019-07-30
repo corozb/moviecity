@@ -71,9 +71,9 @@
   const comedyList = await getData(`${URL_API}genre=comedy`)
 
   // template
-  function movieTemplate(item){
+  function movieTemplate(item, genre){
     return (
-      `<div class="movie">
+      `<div class="movie" data-id="${item.id}" data-genre=${genre}>
         <div class="movie-image">
           <img src="${item.medium_cover_image}">
         </div>
@@ -95,15 +95,15 @@
   
   function clickEvent(element) {
     element.addEventListener('click', () => {
-      showModal()
+      showModal(element)
     })
   }
 
-  function renderMovieList(list, genreContainer) {
+  function renderMovieList(list, genreContainer, genre) {
     genreContainer.children[0].remove()
     
     list.forEach((item) => {
-      const HTMLString = movieTemplate(item) // convertimos a un template
+      const HTMLString = movieTemplate(item, genre) // convertimos a un template
       const movieElements = createHtml(HTMLString) //creamos un elemento nuevo porque son elementos en cadena 
       
       genreContainer.append(movieElements) //Para que nos imprima cada elemento en el navegador
@@ -113,22 +113,22 @@
   
   // ---- rendering movie list ------------
   const advContainer = document.querySelector('#adventure')
-  renderMovieList(adventureList.data.movies, advContainer)
+  renderMovieList(adventureList.data.movies, advContainer, 'adventure')
   
   const actionContainer = document.querySelector('#action')
-  renderMovieList(actionList.data.movies, actionContainer)
+  renderMovieList(actionList.data.movies, actionContainer, 'action')
   
   const horrorContainer = document.querySelector('#horror')
-  renderMovieList(horrorList.data.movies, horrorContainer)
+  renderMovieList(horrorList.data.movies, horrorContainer, 'horror')
   
   const dramaContainer = document.querySelector('#drama')
-  renderMovieList(dramaList.data.movies, dramaContainer)
+  renderMovieList(dramaList.data.movies, dramaContainer, 'drama')
   
   const animationContainer = document.querySelector('#animation')
-  renderMovieList(animationList.data.movies, animationContainer)
+  renderMovieList(animationList.data.movies, animationContainer, 'animation')
   
   const comedyContainer = document.querySelector('#comedy')
-  renderMovieList(comedyList.data.movies, comedyContainer)
+  renderMovieList(comedyList.data.movies, comedyContainer, 'comedy')
 
   // Variables
   const $overlay = document.querySelector('.overlay')
@@ -139,10 +139,12 @@
   const $modalDescription = $modal.querySelector('p')
   const $hideModal = document.querySelector('#hide-modal')
 
-  function showModal(){
+  function showModal(element){
     $overlay.classList.add('active')
     // $modal.classList.toggle('show-modal')
     $modal.style.animation = 'modalIn .8s forwards'
+    const id = element.dataset.id
+    debugger
 
   }
 
