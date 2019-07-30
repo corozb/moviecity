@@ -6,10 +6,10 @@
     return data;
   }
 
+  const URL_API = 'https://yts.lt/api/v2/list_movies.json?'
   const $form = document.querySelector('.search')
   const $container = document.querySelector('.container')
   const $featContainer = document.querySelector('.home-featuring')
-
 
   function addAttributes(element, attributes){
     for (const key in attributes) {
@@ -17,7 +17,25 @@
     }
   }
   
-  $form.addEventListener('submit', (event) => {
+  // template featuring
+  function featTemplate(searchMovie) {
+    return (
+      `
+      <div class="featuring">
+        <div class="featuring-image">
+          <img src="${searchMovie.data.movies[0].medium_cover_image}" alt="">
+        </div>
+
+        <div class="featuring-content">
+          <p class="featuring-title">Movie Found</p>
+          <p class="featuring-movie">${searchMovie.data.movies[0].title}</p>
+        </div>
+      </div>
+      `
+    )
+  }
+
+  $form.addEventListener('submit', async (event) => { //la volvemos asincrona porque vamos a hacer consultas a una API
     event.preventDefault() //Evita que recarge la página en cada búsqueda
     $container.classList.add('search-active')
     
@@ -28,16 +46,21 @@
       width: 100,
     })
     $featContainer.append(loader)
+
+    const searching = new FormData($form) // creamos una clase FormData para obtener los valores del input del formulario
+    const searchMovie = await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
+    const HTMLfeat = featTemplate(searchMovie)
+    $featContainer.innerHTML = HTMLfeat
+    
   })
   
-  const urlApi = 'https://yts.lt/api/v2/list_movies.json?genre='
-  
-  const adventureList = await getData(urlApi +'adventure')
-  const actionList = await getData(urlApi + 'action')
-  const horrorList = await getData(urlApi + 'horror')
-  const dramaList = await getData(urlApi + 'drama')
-  const animationList = await getData(urlApi + 'animation')
-  const comedyList = await getData(urlApi + 'comedy')
+  // -----------list -----------
+  const adventureList = await getData(`${URL_API}genre=adventure`)
+  const actionList = await getData(`${URL_API}genre=action`)
+  const horrorList = await getData(`${URL_API}genre=horror`)
+  const dramaList = await getData(`${URL_API}genre=drama`)
+  const animationList = await getData(`${URL_API}genre=animation`)
+  const comedyList = await getData(`${URL_API}genre=comedy`)
 
   // template
   function movieTemplate(item){
@@ -73,12 +96,12 @@
     
     list.forEach((item) => {
       const HTMLString = movieTemplate(item) // convertimos a un template
-      const movieElements = createHtml(HTMLString)
+      const movieElements = createHtml(HTMLString) //creamos un elemento nuevo porque son elementos en cadena 
       
       genreContainer.append(movieElements) //Para que nos imprima cada elemento en el navegador
       clickEvent(movieElements)
     })
-  }
+  };
   
   // ---- rendering movie list ------------
   const advContainer = document.querySelector('#adventure')
