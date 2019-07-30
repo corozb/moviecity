@@ -222,6 +222,10 @@ body {
   cursor: pointer;
 }
 
+.playlist-movies img {
+  margin: auto
+}
+
 .movie img {
   width: 250px;
   height: 280px;
@@ -260,12 +264,16 @@ body {
 }
 
 .featuring-title {
-  margin: 10px
+  margin: 10px;
 }
 
 .featuring-movie {
   font-size: 1.3em;
   margin: 10px;
+}
+
+.home-featuring img {
+  margin: auto
 }
 
 .modal {

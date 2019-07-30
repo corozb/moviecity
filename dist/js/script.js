@@ -63,12 +63,18 @@
   })
   
   // -----------list -----------
-  const adventureList = await getData(`${URL_API}genre=adventure`)
-  const actionList = await getData(`${URL_API}genre=action`)
-  const horrorList = await getData(`${URL_API}genre=horror`)
-  const dramaList = await getData(`${URL_API}genre=drama`)
-  const animationList = await getData(`${URL_API}genre=animation`)
-  const comedyList = await getData(`${URL_API}genre=comedy`)
+  const { data: { //desestructumas las variables en un objeto
+    movies: adventureList} } = await getData(`${URL_API}genre=adventure`)
+   const { data: {
+     movies: actionList} } = await getData(`${URL_API}genre=action`)
+  const { data: { 
+    movies: horrorList} } = await getData(`${URL_API}genre=horror`)
+  const { data: { 
+    movies: dramaList} } = await getData(`${URL_API}genre=drama`)
+  const { data: { 
+    movies: animationList} } = await getData(`${URL_API}genre=animation`)
+  const { data: { 
+    movies: comedyList} } = await getData(`${URL_API}genre=comedy`)
 
   // template
   function movieTemplate(item, genre){
@@ -113,22 +119,22 @@
   
   // ---- rendering movie list ------------
   const advContainer = document.querySelector('#adventure')
-  renderMovieList(adventureList.data.movies, advContainer, 'adventure')
+  renderMovieList(adventureList, advContainer, 'adventure')
   
   const actionContainer = document.querySelector('#action')
-  renderMovieList(actionList.data.movies, actionContainer, 'action')
+  renderMovieList(actionList, actionContainer, 'action')
   
   const horrorContainer = document.querySelector('#horror')
-  renderMovieList(horrorList.data.movies, horrorContainer, 'horror')
+  renderMovieList(horrorList, horrorContainer, 'horror')
   
   const dramaContainer = document.querySelector('#drama')
-  renderMovieList(dramaList.data.movies, dramaContainer, 'drama')
+  renderMovieList(dramaList, dramaContainer, 'drama')
   
   const animationContainer = document.querySelector('#animation')
-  renderMovieList(animationList.data.movies, animationContainer, 'animation')
+  renderMovieList(animationList, animationContainer, 'animation')
   
   const comedyContainer = document.querySelector('#comedy')
-  renderMovieList(comedyList.data.movies, comedyContainer, 'comedy')
+  renderMovieList(comedyList, comedyContainer, 'comedy')
 
   // Variables
   const $overlay = document.querySelector('.overlay')
@@ -139,13 +145,44 @@
   const $modalDescription = $modal.querySelector('p')
   const $hideModal = document.querySelector('#hide-modal')
 
+  function findById(list, id) {
+    return list.find((movie) => movie.id === parseInt(id, 10))
+  }
+
+  function modalMovie(id, genre) {
+    switch (genre) {
+      case 'adventure': {
+        return findById(adventureList, id)
+      }
+      case 'action' : {
+        return findById(actionList, id)
+      }
+      case 'horror' : {
+        return findById(horrorList, id)
+      }
+      case 'drama' : {
+        return findById(dramaList, id)
+      }
+      case 'comedy' : {
+        return findById(comedyList, id)
+      }
+      default: {
+        return findById(animationList, id)
+      }
+    }
+  }
+
   function showModal(element){
     $overlay.classList.add('active')
     // $modal.classList.toggle('show-modal')
     $modal.style.animation = 'modalIn .8s forwards'
     const id = element.dataset.id
-    debugger
+    const genre = element.dataset.genre
+    const dataMovie = modalMovie(id, genre)
 
+    $modalTitle.textContent = dataMovie.title
+    $modalImage.setAttribute('src', dataMovie.medium_cover_image)
+    $modalDescription.textContent = dataMovie.description_full
   }
 
   $hideModal.addEventListener('click', () => {
