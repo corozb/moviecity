@@ -23,12 +23,12 @@
       `
       <div class="featuring">
         <div class="featuring-image">
-          <img src="${searchMovie.data.movies[0].medium_cover_image}" alt="">
+          <img src="${searchMovie.medium_cover_image}" alt="">
         </div>
 
         <div class="featuring-content">
           <p class="featuring-title">Movie Found</p>
-          <p class="featuring-movie">${searchMovie.data.movies[0].title}</p>
+          <p class="featuring-movie">${searchMovie.title}</p>
         </div>
       </div>
       `
@@ -48,8 +48,16 @@
     $featContainer.append(loader)
 
     const searching = new FormData($form) // creamos una clase FormData para obtener los valores del input del formulario
-    const searchMovie = await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
-    const HTMLfeat = featTemplate(searchMovie)
+    
+    // Vamos a destructurar un objeto:
+    // const searchMovie = await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
+    const {
+      data: {
+        movies: myMovie
+      }
+    }= await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
+    
+    const HTMLfeat = featTemplate(myMovie[0])
     $featContainer.innerHTML = HTMLfeat
     
   })
