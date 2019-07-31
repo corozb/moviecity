@@ -3,7 +3,11 @@
   async function getData(url) {
     const response = await fetch(url)
     const data = await response.json()
-    return data;
+    if (data.data.movie_count > 0){
+      return data;
+    } 
+
+    throw new Error ("We couldn't find the movie")
   }
 
   const URL_API = 'https://yts.lt/api/v2/list_movies.json?'
@@ -38,8 +42,8 @@
   $form.addEventListener('submit', async (event) => { //la volvemos asincrona porque vamos a hacer consultas a una API
     event.preventDefault() //Evita que recarge la página en cada búsqueda
     $container.classList.add('search-active')
-    
     const loader = document.createElement('img')
+
     addAttributes(loader, {
       src: 'src/images/loading-page.gif',
       height: 50,
@@ -48,17 +52,27 @@
     $featContainer.append(loader)
 
     const searching = new FormData($form) // creamos una clase FormData para obtener los valores del input del formulario
-    
-    // Vamos a destructurar un objeto:
-    // const searchMovie = await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
-    const {
-      data: {
-        movies: myMovie
-      }
-    }= await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
-    
-    const HTMLfeat = featTemplate(myMovie[0])
-    $featContainer.innerHTML = HTMLfeat
+    try {
+      // Vamos a destructurar un objeto:
+      // const searchMovie = await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
+      const {
+        data: {
+          movies: myMovie
+        }
+      }= await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
+      
+      const HTMLfeat = featTemplate(myMovie[0])
+      $featContainer.innerHTML = HTMLfeat
+
+    } catch(error) {
+      Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: error.message
+      })
+      loader.remove()
+      $container.classList.remove('search-active')
+    }
     
   })
   
@@ -101,6 +115,7 @@
       genreContainer.append(movieElements) //Para que nos imprima cada elemento en el navegador
       const imageCartel = movieElements.querySelector('img')
       imageCartel.addEventListener('load', (event) => {
+        // imageCartel.classList.add('fadeIn') es lo mismo:
         event.srcElement.classList.add('fadeIn')
       })
       clickEvent(movieElements)
