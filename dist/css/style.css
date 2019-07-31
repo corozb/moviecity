@@ -243,6 +243,29 @@ body {
   box-shadow: 0 0 10px rgb(200, 208, 245);
 }
 
+.fadeIn {
+  -webkit-animation: fadeIn 4s;
+          animation: fadeIn 4s;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .featuring {
   background: #000;
   display: flex;

@@ -62,21 +62,7 @@
     
   })
   
-  // -----------list -----------
-  const { data: { //desestructumas las variables en un objeto
-    movies: adventureList} } = await getData(`${URL_API}genre=adventure`)
-   const { data: {
-     movies: actionList} } = await getData(`${URL_API}genre=action`)
-  const { data: { 
-    movies: horrorList} } = await getData(`${URL_API}genre=horror`)
-  const { data: { 
-    movies: dramaList} } = await getData(`${URL_API}genre=drama`)
-  const { data: { 
-    movies: animationList} } = await getData(`${URL_API}genre=animation`)
-  const { data: { 
-    movies: comedyList} } = await getData(`${URL_API}genre=comedy`)
-
-  // template
+ // template
   function movieTemplate(item, genre){
     return (
       `<div class="movie" data-id="${item.id}" data-genre=${genre}>
@@ -113,26 +99,44 @@
       const movieElements = createHtml(HTMLString) //creamos un elemento nuevo porque son elementos en cadena 
       
       genreContainer.append(movieElements) //Para que nos imprima cada elemento en el navegador
+      const imageCartel = movieElements.querySelector('img')
+      imageCartel.addEventListener('load', (event) => {
+        event.srcElement.classList.add('fadeIn')
+      })
       clickEvent(movieElements)
     })
   };
   
+
+  // -----------list and render-----------
+  const { data: { //desestructumas las variables en un objeto
+    movies: adventureList} } = await getData(`${URL_API}genre=adventure`)
   // ---- rendering movie list ------------
   const advContainer = document.querySelector('#adventure')
   renderMovieList(adventureList, advContainer, 'adventure')
   
+  const { data: {
+     movies: actionList} } = await getData(`${URL_API}genre=action`)
   const actionContainer = document.querySelector('#action')
   renderMovieList(actionList, actionContainer, 'action')
   
+  const { data: { 
+    movies: horrorList} } = await getData(`${URL_API}genre=horror`)
   const horrorContainer = document.querySelector('#horror')
   renderMovieList(horrorList, horrorContainer, 'horror')
   
+  const { data: { 
+    movies: dramaList} } = await getData(`${URL_API}genre=drama`)
   const dramaContainer = document.querySelector('#drama')
   renderMovieList(dramaList, dramaContainer, 'drama')
   
+  const { data: { 
+    movies: animationList} } = await getData(`${URL_API}genre=animation`)
   const animationContainer = document.querySelector('#animation')
   renderMovieList(animationList, animationContainer, 'animation')
-  
+    
+  const { data: { 
+    movies: comedyList} } = await getData(`${URL_API}genre=comedy`)
   const comedyContainer = document.querySelector('#comedy')
   renderMovieList(comedyList, comedyContainer, 'comedy')
 
