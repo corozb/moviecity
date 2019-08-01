@@ -21,11 +21,79 @@
     }
   }
   
-  // template featuring
-  function featTemplate(searchMovie) {
+  // ------ SIDEBARD GENERATING -----------
+  // friends online
+
+  async function getUser(url) {
+    const response = await fetch(url)
+    const data = await response.json()
+    return data;
+  }
+
+  function friendsTemplate(user) {
     return (
       `
-      <div class="featuring">
+      <li class="eachfriend-item" data-name=${user.name.first}>
+        <a href="">
+          <img src="${user.picture.thumbnail}" alt="${user.name.first} ${user.name.last} avatar">
+          <span>
+          ${user.name.first} ${user.name.last}
+          </span>
+        </a>
+      </li>
+      `
+    )
+  }
+
+  function renderFriendList(list, $container) {
+    list.forEach((user) => {
+      const HTMLString = friendsTemplate(user) // convertimos a un template
+      const friendElements = createHtml(HTMLString) //creamos un elemento nuevo porque son elementos en cadena 
+      
+      $container.append(friendElements) //Para que nos imprima cada elemento en el navegador
+    })
+  };
+
+  const URL_USER = 'https://randomuser.me/api/?'
+  const { results: friendList }  = await getUser(`${URL_USER}results=10`)
+
+  const $personContainer = document.querySelector('ul')
+  renderFriendList(friendList, $personContainer)
+
+  // ------ playlist
+  function playlistTemplate(movie) {
+    return (
+      `
+      <li class="myplaylist-item">  
+        <a href="">
+          <span>
+            ${movie.title}
+          </span>
+        </a>
+      </li>
+      `
+    )
+  }
+
+  function renderPlaylist(list, $container) {
+    list.forEach((movie) => {
+      const HTMLString = playlistTemplate(movie) // convertimos a un template
+      const playElements = createHtml(HTMLString) //creamos un elemento nuevo porque son elementos en cadena 
+      
+      $container.append(playElements) //Para que nos imprima cada elemento en el navegador
+    })
+  };
+
+  const { data: { movies: topPlaylist } } = await getData(`${URL_API}sort_by=rating&limit=10`)
+  const $playlistContainer = document.querySelector('ol')
+  renderPlaylist(topPlaylist, $playlistContainer)
+
+
+  // template featuring
+  function featTemplate(searchMovie, genres) {
+    return (
+      `
+      <div class="featuring" data-id="${searchMovie.id}" data-genre=${searchMovie.genres[0]}>
         <div class="featuring-image">
           <img src="${searchMovie.medium_cover_image}" alt="">
         </div>
@@ -42,6 +110,7 @@
   $form.addEventListener('submit', async (event) => { //la volvemos asincrona porque vamos a hacer consultas a una API
     event.preventDefault() //Evita que recarge la página en cada búsqueda
     $container.classList.add('search-active')
+    $featContainer.classList.remove('featuring-hide')
     const loader = document.createElement('img')
 
     addAttributes(loader, {
@@ -63,7 +132,8 @@
       
       const HTMLfeat = featTemplate(myMovie[0])
       $featContainer.innerHTML = HTMLfeat
-
+      clickEvent($featContainer)
+      
     } catch(error) {
       Swal.fire({
         type: 'error',
@@ -72,6 +142,7 @@
       })
       loader.remove()
       $container.classList.remove('search-active')
+      $featContainer.classList.add('featuring-hide')
     }
     
   })
@@ -157,6 +228,7 @@
 
   // Variables
   const $overlay = document.querySelector('.overlay')
+  const $featuring = document.querySelector('.featuring')
   
   const $modal = document.querySelector('.modal')
   const $modalTitle = $modal.querySelector('h1')
@@ -169,6 +241,9 @@
   }
 
   function modalMovie(id, genre) {
+      // actionList.find((movie) => {
+      // return movie.id === id
+      // })
     switch (genre) {
       case 'adventure': {
         return findById(adventureList, id)
@@ -195,6 +270,7 @@
     $overlay.classList.add('active')
     // $modal.classList.toggle('show-modal')
     $modal.style.animation = 'modalIn .8s forwards'
+    
     const id = element.dataset.id
     const genre = element.dataset.genre
     const dataMovie = modalMovie(id, genre)
@@ -208,6 +284,10 @@
     $overlay.classList.remove('active')
     // $modal.classList.toggle('show-modal')
     $modal.style.animation= 'modalOut .8s forwards'
+    $container.classList.remove('search-active')
+    $featContainer.classList.add('featuring-hide')
   })
 
+
 })()
+
