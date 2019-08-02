@@ -76,7 +76,7 @@
     $modalImage.setAttribute('src', picture.large)
     $modalDescription.innerHTML = 
     `
-      <strong>Email: </strong> ${email} <br/><br/>r/>
+      <strong>Email: </strong> ${email} <br/><br/>
       <strong>Phone: </strong> ${phone} <br/><br/>
       <strong>Age: </strong> ${dob.age} <br/><br/>
       <strong>Location: </strong> ${location.city}, ${location.state}
@@ -165,6 +165,11 @@
     event.preventDefault() //Evita que recarge la página en cada búsqueda
     $container.classList.add('search-active')
     $featContainer.classList.remove('featuring-hide')
+
+    setTimeout(() => {
+      $featContainer.classList.add('featuring-hide')
+      $container.classList.remove('search-active')
+    }, 5000)
     const loader = document.createElement('img')
 
     addAttributes(loader, {
@@ -255,32 +260,38 @@
   // -----------list and render-----------
   const { data: { //desestructumas las variables en un objeto
     movies: adventureList} } = await getData(`${URL_API}genre=adventure`)
+  window.localStorage.setItem('adventureList', JSON.stringify(adventureList))
   // ---- rendering movie list ------------
   const advContainer = document.querySelector('#adventure')
   renderMovieList(adventureList, advContainer, 'adventure')
   
   const { data: {
      movies: actionList} } = await getData(`${URL_API}genre=action`)
+  window.localStorage.setItem('actionList', JSON.stringify(actionList))
   const actionContainer = document.querySelector('#action')
   renderMovieList(actionList, actionContainer, 'action')
   
   const { data: { 
     movies: horrorList} } = await getData(`${URL_API}genre=horror`)
+  window.localStorage.setItem('horrorList', JSON.stringify(horrorList))
   const horrorContainer = document.querySelector('#horror')
   renderMovieList(horrorList, horrorContainer, 'horror')
   
   const { data: { 
     movies: dramaList} } = await getData(`${URL_API}genre=drama`)
+  window.localStorage.setItem('dramaList', JSON.stringify(dramaList))
   const dramaContainer = document.querySelector('#drama')
   renderMovieList(dramaList, dramaContainer, 'drama')
   
   const { data: { 
     movies: animationList} } = await getData(`${URL_API}genre=animation`)
+  window.localStorage.setItem('animationList', JSON.stringify(animationList))
   const animationContainer = document.querySelector('#animation')
   renderMovieList(animationList, animationContainer, 'animation')
     
   const { data: { 
     movies: comedyList} } = await getData(`${URL_API}genre=comedy`)
+  window.localStorage.setItem('comedyList', JSON.stringify(comedyList))
   const comedyContainer = document.querySelector('#comedy')
   renderMovieList(comedyList, comedyContainer, 'comedy')
 
@@ -289,9 +300,6 @@
   }
   
   function modalMovie(id, category) {
-    // actionList.find((movie) => {
-      // return movie.id === id
-      // })
       switch (category) {
         case 'adventure': {
           return findById(adventureList, id)
