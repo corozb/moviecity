@@ -106,6 +106,7 @@
 
   const URL_USER = 'https://randomuser.me/api/?'
   const { results: friendList }  = await getUser(`${URL_USER}results=10`)
+  window.localStorage.setItem('friendList', JSON.stringify(friendList))
 
   const $personContainer = document.querySelector('ul')
   renderFriendList(friendList, $personContainer)
@@ -140,6 +141,7 @@
   };
 
   const { data: { movies: topPlaylist } } = await getData(`${URL_API}sort_by=rating&limit=10`)
+  window.localStorage.setItem('topPlaylist', JSON.stringify(topPlaylist))
   renderPlaylist(topPlaylist, $playlistContainer, 'top')
 
 
@@ -183,12 +185,9 @@
     try {
       // Vamos a destructurar un objeto:
       // const searchMovie = await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
-      const {
-        data: {
-          movies: myMovie
-        }
+      const { data: { movies: myMovie }
       }= await getData(`${URL_API}limit=1&query_term=${searching.get('name')}`) //Es necesario que el input del formulario cuente con el atributo 'name'
-      
+
       const HTMLString = featTemplate(myMovie[0])
       $featContainer.innerHTML = HTMLString
 
@@ -257,41 +256,65 @@
   };
   
 
+  // ---------- cache data ---------
+  async function cacheExist(category) {
+    const listName = `${category}List`
+    const cacheList = window.localStorage.getItem(listName)
+
+    if (cacheList) { //if cache it's true then do this:
+      return JSON.parse(cacheList)
+    } 
+    //if not make a new request
+    const { data: { movies: myCategory } } = await getData(`${URL_API}genre=${category}`)
+    window.localStorage.setItem(listName, JSON.stringify(myCategory))
+    
+    return myCategory
+  }
+
   // -----------list and render-----------
-  const { data: { //desestructumas las variables en un objeto
-    movies: adventureList} } = await getData(`${URL_API}genre=adventure`)
-  window.localStorage.setItem('adventureList', JSON.stringify(adventureList))
+  
+  // Codigo Inicial:
+  // const { data: { //desestructumas las variables en un objeto
+  // movies: adventureList} } = await getData(`${URL_API}genre=adventure`)
+  // window.localStorage.setItem('adventureList', JSON.stringify(adventureList))
+  const adventureList = await cacheExist('adventure')
   // ---- rendering movie list ------------
   const advContainer = document.querySelector('#adventure')
   renderMovieList(adventureList, advContainer, 'adventure')
+
   
-  const { data: {
-     movies: actionList} } = await getData(`${URL_API}genre=action`)
-  window.localStorage.setItem('actionList', JSON.stringify(actionList))
+  // const { data: {
+  //    movies: actionList} } = await getData(`${URL_API}genre=action`)
+  // window.localStorage.setItem('actionList', JSON.stringify(actionList))
+  const actionList = await cacheExist('action')
   const actionContainer = document.querySelector('#action')
   renderMovieList(actionList, actionContainer, 'action')
   
-  const { data: { 
-    movies: horrorList} } = await getData(`${URL_API}genre=horror`)
-  window.localStorage.setItem('horrorList', JSON.stringify(horrorList))
+  // const { data: { 
+  //   movies: horrorList} } = await getData(`${URL_API}genre=horror`)
+  // window.localStorage.setItem('horrorList', JSON.stringify(horrorList))
+  const horrorList = await cacheExist('horror')
   const horrorContainer = document.querySelector('#horror')
   renderMovieList(horrorList, horrorContainer, 'horror')
   
-  const { data: { 
-    movies: dramaList} } = await getData(`${URL_API}genre=drama`)
-  window.localStorage.setItem('dramaList', JSON.stringify(dramaList))
+  // const { data: { 
+  //   movies: dramaList} } = await getData(`${URL_API}genre=drama`)
+  // window.localStorage.setItem('dramaList', JSON.stringify(dramaList))
+  const dramaList = await cacheExist('drama')
   const dramaContainer = document.querySelector('#drama')
   renderMovieList(dramaList, dramaContainer, 'drama')
   
-  const { data: { 
-    movies: animationList} } = await getData(`${URL_API}genre=animation`)
-  window.localStorage.setItem('animationList', JSON.stringify(animationList))
+  // const { data: { 
+  //   movies: animationList} } = await getData(`${URL_API}genre=animation`)
+  // window.localStorage.setItem('animationList', JSON.stringify(animationList))
+  const animationList = await cacheExist('animation')
   const animationContainer = document.querySelector('#animation')
   renderMovieList(animationList, animationContainer, 'animation')
     
-  const { data: { 
-    movies: comedyList} } = await getData(`${URL_API}genre=comedy`)
-  window.localStorage.setItem('comedyList', JSON.stringify(comedyList))
+  // const { data: { 
+  //   movies: comedyList} } = await getData(`${URL_API}genre=comedy`)
+  // window.localStorage.setItem('comedyList', JSON.stringify(comedyList))
+  const comedyList = await cacheExist('comedy')
   const comedyContainer = document.querySelector('#comedy')
   renderMovieList(comedyList, comedyContainer, 'comedy')
 
