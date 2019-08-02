@@ -325,6 +325,10 @@ body {
   flex-direction: column
 }
 
+.modal h1 {
+  text-transform: capitalize
+}
+
 .modal-content {
   display: flex;
 }
