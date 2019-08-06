@@ -157,6 +157,7 @@
         <div class="featuring-content">
           <p class="featuring-title">Movie Found</p>
           <p class="featuring-movie">${searchMovie.title}</p>
+          <p class="featuring-text">${searchMovie.description_full}</p>
         </div>
       </div>
       `
@@ -351,7 +352,7 @@
     function showModal($element){
       $overlay.classList.add('active')
       // $modal.classList.toggle('show-modal')
-      $modal.style.animation = 'modalIn .8s forwards'
+      $modal.style.animation = 'modalIn .6s forwards'
       
     const id = $element.dataset.id
     const category = $element.dataset.category
