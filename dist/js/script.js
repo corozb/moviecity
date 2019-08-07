@@ -170,10 +170,8 @@
     $featContainer.classList.remove('featuring-hide')
     
     setTimeout(() => {
-      debugger
       $featContainer.classList.add('featuring-hide')
       $container.classList.remove('search-active')
-      debugger
     }, 7000)
     const loader = document.createElement('img')
     
@@ -258,6 +256,16 @@
     })
   };
   
+
+  // --------------- Responsive Burger Menu ----------------
+  (function responsiveMenu() {
+    const $home_sidebar = document.querySelector('.home-sidebar')
+    
+    const $btnResponsive = document.querySelector('.burger-button')
+    const $sidebarResponsive = document.querySelector('.sidebar-responsive')
+    $btnResponsive.addEventListener('click', () => $home_sidebar.classList.toggle('activo') )
+    $sidebarResponsive.addEventListener('click', () => $home_sidebar.classList.remove('activo') )
+  })()
 
   // ---------- cache data ---------
   async function cacheExist(category) {
@@ -373,6 +381,14 @@
     $featContainer.classList.add('featuring-hide')
   })
 
+  // (function responsiveMenu() {
+  //   const $home_sidebar = document.querySelector('.home-sidebar')
+    
+  //   const $btnResponsive = document.querySelector('.burger-button')
+  //   const $sidebarResponsive = document.querySelector('.sidebar-responsive')
+  //   $btnResponsive.addEventListener('click', () => $home_sidebar.classList.toggle('activo') )
+  //   $sidebarResponsive.addEventListener('click', () => $home_sidebar.classList.remove('activo') )
+  // })()
 
 })()
 
