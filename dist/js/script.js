@@ -168,13 +168,15 @@
     event.preventDefault() //Evita que recarge la página en cada búsqueda
     $container.classList.add('search-active')
     $featContainer.classList.remove('featuring-hide')
-
+    
     setTimeout(() => {
+      debugger
       $featContainer.classList.add('featuring-hide')
       $container.classList.remove('search-active')
-    }, 5000)
+      debugger
+    }, 7000)
     const loader = document.createElement('img')
-
+    
     addAttributes(loader, {
       src: 'src/images/loading-page.gif',
       height: 50,
