@@ -373,13 +373,16 @@
     $modalDescription.textContent = dataMovie.description_full
   }
 
-  $hideModal.addEventListener('click', () => {
+  const close =  () => {
     $overlay.classList.remove('active')
     // $modal.classList.toggle('show-modal')
     $modal.style.animation= 'modalOut .8s forwards'
     $container.classList.remove('search-active')
     $featContainer.classList.add('featuring-hide')
-  })
+  }
+
+  $overlay.addEventListener('click', close)
+  $hideModal.addEventListener('click', close)
 
   // (function responsiveMenu() {
   //   const $home_sidebar = document.querySelector('.home-sidebar')
