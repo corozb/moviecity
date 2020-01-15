@@ -3,3 +3,4 @@ package.json
 postcss.config.js 
 src/css
 node_modules/
+dist/css/style.css.map

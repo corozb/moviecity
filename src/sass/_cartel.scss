@@ -1,0 +1,17 @@
+/* ----------- CARTEL ------------ */
+.cartel {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  padding: 10px;
+  overflow: auto;
+  grid-template-areas:
+    'search user'
+    'list list';
+
+  &-list {
+    grid-area: list;
+    overflow: auto;
+  }
+}
+

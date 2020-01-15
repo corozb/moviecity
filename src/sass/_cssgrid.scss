@@ -1,0 +1,30 @@
+/* ------- CSS GRID ---------- */
+.container {
+  background: linear-gradient(to bottom, $darkColor, black);
+  color: $lighColor;
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr 0;
+  grid-template-areas:
+    'sidebar header'
+    'sidebar cartel'
+    'sidebar featuring';
+}
+
+.search-active {
+  grid-template-rows: 50px 1fr 150px;
+}
+
+.home-sidebar {
+  grid-area: sidebar;
+}
+
+.cartel {
+  grid-area: cartel;
+}
+
+.home-featuring {
+  display: grid;
+  grid-area: featuring;
+}

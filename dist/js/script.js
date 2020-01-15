@@ -373,13 +373,16 @@
     $modalDescription.textContent = dataMovie.description_full
   }
 
-  const close =  () => {
+  function close () {
     $overlay.classList.remove('active')
     // $modal.classList.toggle('show-modal')
     $modal.style.animation= 'modalOut .8s forwards'
     $container.classList.remove('search-active')
     $featContainer.classList.add('featuring-hide')
   }
+
+  // const close =  () => {
+  // }
 
   $overlay.addEventListener('click', close)
   $hideModal.addEventListener('click', close)

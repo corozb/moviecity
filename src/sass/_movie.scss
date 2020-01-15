@@ -1,0 +1,56 @@
+.cartel-topic {
+  margin: 15px 0 0;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.cartel-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.playlist-movies {
+  display: flex;
+  overflow: auto;
+
+  .movie-image {
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  img {
+    margin: auto;
+  }
+}
+
+.movie {
+  img {
+    width: 10em;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  &-title {
+    margin: 5px 0;
+    font-weight: normal;
+  }
+
+  &:hover img {
+    box-shadow: 0 0 10px $lighColor;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 4s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $main-font;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+
+  &-thumb {
+    background: $darkColor;
+    border-radius: 0.4rem;
+  }
+}
+
+@mixin phone {
+  @media screen and (max-width: 319px) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 900px) {
+    @content;
+  }
+}

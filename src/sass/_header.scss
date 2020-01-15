@@ -1,0 +1,77 @@
+.header {
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'search user';
+  align-items: center;
+  margin: 1rem 0 0.5rem;
+
+  .burger-button {
+    display: none;
+    margin: 20px;
+    font-size: 25px;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .logo {
+    grid-area: logo;
+    display: none;
+    height: 50px;
+    justify-self: center;
+  }
+
+  .cartel-search {
+    grid-area: search;
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-left: 120px;
+    }
+
+    .search input {
+      background: $input-background;
+      font-family: 'PT Sans Narrow', sans-serif;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1em;
+      width: 180%;
+      border: none;
+      outline: none;
+      color: #fff;
+      margin-left: 10px;
+
+      &:focus {
+        box-shadow: 0 0 10px $lighColor;
+      }
+    }
+  }
+
+  .main-user {
+    grid-area: user;
+    justify-self: end;
+    // margin-right: 5rem;
+
+    .user {
+      p {
+        display: flex;
+        align-items: center;
+        font-weight: 300;
+        margin: 0;
+      }
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 10px;
+        margin-right: 0.8rem;
+      }
+    }
+  }
+}
