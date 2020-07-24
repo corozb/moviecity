@@ -198,6 +198,10 @@ body {
   margin-bottom: 0;
 }
 
+.myplaylist {
+  padding-left: 1.8rem;
+}
+
 .myplaylist-item a {
   text-decoration: none;
   font-size: 14.5px;
@@ -331,8 +335,8 @@ body {
 }
 
 .fadeIn {
-  -webkit-animation: fadeIn 4s;
-          animation: fadeIn 4s;
+  -webkit-animation: fadeIn 5000;
+          animation: fadeIn 5000;
 }
 
 @-webkit-keyframes fadeIn {
@@ -618,7 +622,7 @@ body {
     bottom: 0;
     display: none;
   }
-  .home-sidebar.activo {
+  .home-sidebar.active {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

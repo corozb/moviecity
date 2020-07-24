@@ -1,6 +1,13 @@
 package-lock.json  
-package.json
 postcss.config.js 
-src/css
 node_modules/
-dist/css/style.css.map
+
+### Sass ###
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+*.scss
+*.map
+*.min.css
+*_*.scss
